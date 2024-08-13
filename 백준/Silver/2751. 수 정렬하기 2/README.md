@@ -140,11 +140,3 @@ cout << "\n"보다는 prinft("%d\n") 가 더 빠른것을 알 수 있다.
 
 [참고링크]
 [cplusplus.com](https://cplusplus.com/reference/ostream/endl/)
-
-## Input 반례 (해결 과정)
-
-## 최종 코드
-
-```cpp
-
-```
