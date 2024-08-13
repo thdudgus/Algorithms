@@ -25,3 +25,6 @@ This is an auto push repository for Baekjoon Online Judge created with [Baekjoon
 - **N의 범위가 100,000:** 시간 복잡도가 `O(NlogN)` 이하인 알고리즘을 설계
 - **N의 범위가 10,000,000:** 시간 복잡도가 `O(N)` 이하인 알고리즘을 설계
 - **N의 범위가 10,000,000,000:** 시간 복잡도가 `O(logN)` 이하인 알고리즘을 설계
+
+<img width="523" alt="image" src="https://github.com/user-attachments/assets/e9ac22cb-b66e-4af6-99d0-cf7c5deb7cd5">
+
