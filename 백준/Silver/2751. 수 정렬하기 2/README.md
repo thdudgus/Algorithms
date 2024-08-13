@@ -130,8 +130,8 @@ int main()
     	cout << "printf(\"%d\\n\", i) : " << time3 << "ms" << endl;
     }
     ```
-    
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/0f18c247-6d18-4d5e-9eab-6f66bdc404b1/fca4f447-4382-4bc3-b0bd-314e8c3e2da8/image.png)
+    <img width="515" alt="image" src="https://github.com/user-attachments/assets/52e2b771-11a0-482f-a82b-4b7c66d4ebee">
+
     
 
 성능면에서 cout << endl 보다는 cout <<"\n" 가,
