@@ -12,7 +12,7 @@ int main()
     cin >> N;
     for (int i = 0; i < N; i++)
     {
-        cin >> input;
+        scanf("%d", &input);
         A.push_back(input);
     }
     sort(A.begin(), A.end());
@@ -20,7 +20,7 @@ int main()
     cin >> M;
     for (int i = 0; i < M; i++)
     {
-        cin >> input;
+        scanf("%d", &input);
         B.push_back(input);
     }
 
@@ -37,11 +37,11 @@ int main()
             if (A[mid] == B[i])
             {
                 found = true;
-                break; // 반복문을 빠져나감.
+                break; 
             }
-            else if (A[mid] > B[i]) // 찾으려는 수가 더 작음. A의 왼쪽으로 mid 이동
+            else if (A[mid] > B[i]) 
                 right = mid - 1;
-            else if (A[mid] < B[i]) // 찾으려는 수가 더 큼. A의 오른쪽으로 mid 이동
+            else if (A[mid] < B[i]) 
                 left = mid + 1;
                 }
         printf(found ? "1\n" : "0\n");
