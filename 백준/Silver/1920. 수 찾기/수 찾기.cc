@@ -9,7 +9,7 @@ int main()
     vector<int> A;
     vector<int> B;
 
-    cin >> N;
+    scanf("%d", &N);
     for (int i = 0; i < N; i++)
     {
         scanf("%d", &input);
@@ -17,7 +17,7 @@ int main()
     }
     sort(A.begin(), A.end());
 
-    cin >> M;
+    scanf("%d", &M);
     for (int i = 0; i < M; i++)
     {
         scanf("%d", &input);
@@ -31,17 +31,17 @@ int main()
         int right = M; 
         int mid = (left + right) / 2;
         found = false;
-        while (left <= right) 
+        while (left <= right)  
         {
             mid = (left + right) / 2;
             if (A[mid] == B[i])
             {
                 found = true;
-                break; 
+                break; // 반복문을 빠져나감.
             }
-            else if (A[mid] > B[i]) 
+            else if (A[mid] > B[i]) // 찾으려는 수가 더 작음. A의 왼쪽으로 mid 이동
                 right = mid - 1;
-            else if (A[mid] < B[i]) 
+            else if (A[mid] < B[i]) // 찾으려는 수가 더 큼. A의 오른쪽으로 mid 이동
                 left = mid + 1;
                 }
         printf(found ? "1\n" : "0\n");
