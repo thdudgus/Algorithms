@@ -3,14 +3,12 @@
 #include <algorithm>
 using namespace std;
 
-bool binSearch(const vector<int>& A, int low, int high, int target);
-
-int N, M, input;
-vector<int> A;
-vector<int> B;
-
 int main()
 {
+    int N, M, input;
+    vector<int> A;
+    vector<int> B;
+
     cin >> N;
     for (int i = 0; i < N; i++)
     {
@@ -26,28 +24,28 @@ int main()
         B.push_back(input);
     }
 
-    for (int i = 0; i < M; i++) // B 요소가 A에 있는지 찾기
+    bool found;
+    for (int i = 0; i < M; i++)
     {
-        bool found = binSearch(A, 0, N - 1, B[i]);
-        if (found)
-            cout << "1\n";
-        else
-            cout << "0\n";
+        int left = 0;
+        int right = M; 
+        int mid = (left + right) / 2;
+        found = false;
+        while (left <= right) 
+        {
+            mid = (left + right) / 2;
+            if (A[mid] == B[i])
+            {
+                found = true;
+                break; // 반복문을 빠져나감.
+            }
+            else if (A[mid] > B[i]) // 찾으려는 수가 더 작음. A의 왼쪽으로 mid 이동
+                right = mid - 1;
+            else if (A[mid] < B[i]) // 찾으려는 수가 더 큼. A의 오른쪽으로 mid 이동
+                left = mid + 1;
+                }
+        printf(found ? "1\n" : "0\n");
     }
 
     return 0;
-}
-
-bool binSearch(const vector<int>& A, int low, int high, int target)
-{
-    if (low > high)
-        return false;
-
-    int mid = (low + high) / 2;
-    if (A[mid] == target)
-        return true;
-    else if (A[mid] < target)
-        return binSearch(A, mid + 1, high, target);
-    else
-        return binSearch(A, low, mid - 1, target);
 }
