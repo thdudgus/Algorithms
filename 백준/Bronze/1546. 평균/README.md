@@ -30,3 +30,51 @@
 
  <p>첫째 줄에 새로운 평균을 출력한다. 실제 정답과 출력값의 절대오차 또는 상대오차가 10<sup>-2</sup> 이하이면 정답이다.</p>
 
+ ## 문제 해결 아이디어
+시간 제한은 2초   
+N은 1000보다 작거나 같은 자연수이기 때문에 O(N^2)의 알고리즘을 사용하면 된다.   
+
+## Input 반례 (해결 과정)
+sort로 시험점수 정렬 후 (점수/M*100)으로 조작   
+그 후 평균을 구한다.   
+</br>
+코드를 작성하면서 간과했던 부분이 있다.   
+자료형을 잘 살펴볼 것.    
+작은값에서 큰값을 나눌 때 자료형이 int이면 소수점 부분은 버려지기 때문에 0이 되는 것을 까먹지 말자. 해당 문제에선 0이 되면 안 됐음.   
+
+## 최종 코드
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+    int N, input;
+    scanf("%d", &N);
+    vector<float> score;
+    float total, temp, temp2;
+
+    for (int i = 0; i < N; i++)
+    {
+        scanf("%d", &input);
+        score.push_back(input);
+    }
+
+    sort(score.begin(), score.end());
+    temp = score[N-1];
+    total = 0;
+
+    for (int i = 0; i < N ; i++)
+    {
+        temp2 = (score[i] / temp) * 100.0;
+        score[i] = temp2;
+        total += score[i];
+    }
+
+    printf("%.2f", (float)(total/N));
+
+    return 0;
+}
+```
