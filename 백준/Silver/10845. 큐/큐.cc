@@ -26,7 +26,7 @@ int main()
 
         if (!order.compare("push"))
         {
-            cin >> x;
+            scanf("%d", &x);
             push(x);
         }
         else if (!order.compare("pop"))
@@ -42,7 +42,7 @@ int main()
     }
 
     for (auto iter : result)
-        cout << iter << endl;
+        printf("%d\n", iter);
 
     return 0;
 }
