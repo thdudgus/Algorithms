@@ -70,3 +70,36 @@
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
+
+
+## 문제 해결 아이디어
+파이썬의 list를 활용하여 문자열의 괄호를 하나하나 분리하여 list로 저장한다.   
+스택을 활용하여 ‘(’가 나오면 push, ‘)’가 나오면 pop을 진행한다.    
+반복은 list의 길이만큼 반복한다.   
+스택이 비어있는데 ‘)’가 나오면 바로 False를 반환하고, 반복이 끝났음에도 스택에 ‘(’가 남아있다면 False를 반환한다. 반복이 끝난 후 스택이 비어있는 경우 True를 반환한다.   
+</br>
+
+## 최종 코드
+```python
+# s= "()()"
+
+def solution(s):
+    parent_list = list(s)
+    stack=[]
+    for i in range(0, len(parent_list)):
+        if parent_list[i]=='(':
+            stack.append('('). 
+        elif parent_list[i]==')':
+            if len(stack)!=0:
+                stack.pop(). 
+            else:
+                return False
+    if len(stack) != 0:
+        return False
+        
+    return True
+
+# answer=solution(s)
+# print(answer)
+
+```
