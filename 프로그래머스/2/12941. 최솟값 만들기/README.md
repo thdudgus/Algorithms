@@ -73,3 +73,6 @@ A에서 첫번째 숫자인 1,  B에서 두번째 숫자인 4를 뽑아 곱하�
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
+
+## 문제 해결 아이디어
+A의 가장 작은 수와 B의 가장 큰 수를 차례로 곱한다.
