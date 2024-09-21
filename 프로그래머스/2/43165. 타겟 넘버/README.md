@@ -73,3 +73,58 @@
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
+
+
+## 문제 해결 아이디어
+‘-’의 개수를 하나씩 늘려가면서 그 계산 결과가 target과 같다면 answer += 1     
+‘-’가 1개일 땐 len(numbers)의 경우     
+‘-’가 2개일 땐 len(numbers)_P_2     
+n= len(numbers), k = ‘-’의 개수일 때 가능한 식의 조합은 n_P_k이다.   
+
+k가 0보다 작아지기 전까지 반복하면서, k가 n-1개부터 1개일 때까지의 조합의 계산 결과를 도출하면서 answer를 센다.     
+
+순열을 사용하기 위해
+`from itertools import permutations` 에서 
+`list(permutations(numbers, k))` 를 사용한다. 이렇게 뽑힌 숫자들은 더한 후 2배 하여 전체 합에서 빼주면, 뽑힌 숫자들만 뺄셈을 한 것과 같다.     
+
+## Input 반례 (해결 과정)
+해당 코드에서는 k를 i로 표현했다.    
+```python
+from itertools import permutations
+def solution(numbers, target):
+    numbers = list(map(int, numbers))
+    n = len(numbers)
+    total = 0
+    answer = 0
+    
+    for i in range(1, n): # 뺄셈의 개수
+        minus = list(permutations(numbers, i))
+        for j in range(len(minus)):
+            total = sum(numbers) - 2*sum(minus[j])
+            if total == target:
+                answer+=1
+
+    return answer
+```
+
+두번째 테스트 케이스인 [4, 1, 2, 1], 4에선 2가 answer여야 하는데 3이 나왔다.    
+이 경우엔 4-1+2-1과 4+1-2+1 밖에 없는데, 위 코드에선 뺄셈을 하는 -1과 -1의 조합을 두개를 다른 경우로 보는 코드이다. 그러나 문제는 두 개를 같은 경우로 취급하기에 생긴 문제이다. 따라서 순열 대신에 조합을 사용해보겠다.     
+⇒ 정답 !!! :)     
+
+## 최종 코드
+
+```python
+from itertools import combinations
+def solution(numbers, target):
+    numbers = list(map(int, numbers))
+    answer = 0
+    
+    for i in range(1, len(numbers)): # 뺄셈의 개수
+        minus = list(combinations(numbers, i))
+        for j in range(len(minus)):
+            total = sum(numbers) - 2*sum(minus[j])
+            if total == target:
+                answer+=1
+
+    return answer
+```
