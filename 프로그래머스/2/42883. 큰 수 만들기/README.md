@@ -132,7 +132,7 @@
 
 ## 최종 코드
 
-```cpp
+```python
 def solution(number, k):
     n = list(str(number))
     stack = []
