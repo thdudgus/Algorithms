@@ -64,7 +64,7 @@ format()함수는 문자열 중간 중간에 특정 변수의 값을 넣어주�
 </br>
 
 ## Input 반례 (해결 과정)
-```cpp
+```python
 def solution(s):
 s = list(map(int, input().split()))
 answer = '{} {}'.format(min(s), max(s))
@@ -79,7 +79,7 @@ return answer
 
 ## 최종 코드
 
-```cpp
+```python
 def solution(s):
     s = list(map(int, s.split()))  # s를 직접 사용
     answer = '{} {}'.format(min(s), max(s))  # 문자열 포맷팅 수정
