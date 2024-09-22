@@ -30,3 +30,59 @@
 
  <p>첫째 줄에 N번째 영화의 제목에 들어간 수를 출력한다.</p>
 
+
+## 문제 해결 아이디어
+
+N은 10,000보다 작거나 같은 자연수이다.   
+O(N^2) 이하인 알고리즘을 사용하면 된다.   
+</br>
+
+처음엔 규칙을 찾으려고 n번째 영화의 제목을 쭉 써내려갔는데 규칙이랄 것이 없었다.    
+따라서 그냥 처음부터 찾는 방식을 선택하기로 했다.     
+</br>
+
+제목을 알아내기 위해 변수 temp를 설정.    
+temp를 1씩 증가시키면서,   
+n과 count가 같아질때까지 반복.    
+temp를 665부터 하나씩 증가시키면서 666을 포함하면 count 세기.    
+포함하는 건 temp와 666을 string으로 변환하여 find()함수를 사용하여 처리.     
+
+## Input 반례 (해결 과정)
+
+```python
+n = int(input())
+count= 0
+title = '666'
+temp = 665
+for i in range(1, ):
+    if str(temp+i).find(title):
+        count+=1
+    if count == n:
+        answer = temp+i
+        break
+
+print(answer)
+```
+
+위 코드에서 무한루프를 할 때 `for i in range(1, ):` 로 설정하였었는데, 이는 범위를 지정하지 않은 것이라서, 무한루프를 표현할 때는 while을 사용해야 한다.     
+또한 **find()함수는 찾고자 하는 문자열이 있으면 해당 문자열의 인덱스를 반환하고, 없으면 `-1`을 반환한다.**    
+따라서 if문에서의 조건에 ≠-1을 추가해야 한다.    
+⇒ 최종 코드는 아래와 같다.     
+
+## 최종 코드
+
+```python
+n = int(input())
+count= 0
+title = '666'
+temp = 665
+while True:
+    temp +=1
+    if str(temp).find(title) != -1:
+        count+=1
+    if count == n:
+        answer = temp
+        break
+print(answer)
+```
+
