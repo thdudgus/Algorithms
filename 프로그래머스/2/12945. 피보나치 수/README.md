@@ -68,3 +68,26 @@
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
+
+## 문제 해결 아이디어
+
+ 기존의 재귀 방법을 통해 피보나치 수를 구하는 것은 fib(n) = fib(n-1) + fib(n-2)이 반복되면서 중첩된 계산이 많이 발생하며, 시간 복잡도가 지수적으로 커지게 된다.     
+
+따라서  fib(n) = fib(n-1) + fib(n-2)의 값을 저장하는 다른 배열을 만들어, 계산했던 피보나치 수는 저장해두고, 새로운 피보나치 수를 구할 때 이를 활용해보겠다.      
+
+ib(n) = fib(n-1) + fib(n-2)의 값을 저장하는 배열 = f     
+
+⇒ 바로 정답~~    
+
+## 최종 코드
+
+```python
+def solution(n):
+    f = []
+    f.append(0)
+    f.append(1)
+    if n > 1:
+        for i in range(n - 1):
+            f.append(f[i] + f[i+1])
+    return f.pop() % 1234567
+```
