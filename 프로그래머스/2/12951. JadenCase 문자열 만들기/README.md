@@ -59,3 +59,65 @@
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
+
+
+## 문제 해결 아이디어
+
+받은 문자열을 split()으로 공백을 기준으로 나눈 뒤, 첫 인덱스가 숫자면 그 단어는 모두 소문자로 바꾸고, 숫자가 아니면 title()함수를 사용하여 첫글자만 대문자로 바꿔준다.    
+
+## Input 반례 (해결 과정)
+
+```python
+def solution(s):
+    str = s.split()
+    answer = []
+    
+    for i in str:
+        if i[0].isdigit():
+             answer.append(i.lower())
+        else:
+            answer.append(i.title())
+    answer = ' '.join(answer)
+    return answer
+```
+
+입력이 "for the what  1what”인 경우 what과 1what 사이의 공백 2개가 1개로 줄어드는 바람에 틀린다는 것을 알게 되었다.     
+⇒ split()을 사용하는 게 아니라, 모든 문자열을 소문자로 바꾸고, 공백 다음에 알파벳은 대문자로 변환하고, 공백 다음에 숫자가 오면 그냥 넘어가도록 변경하기로 했다.    
+c++로 언어를 변경하였다.    
+`tolower()` 과 `toupper()`는 문자열 전체가 아니라 단일 문자에만 적용되는 함수이다. 또한 변환된 결과가 저장되려면 함수만 호출하지 말고 결과를 다른 문자열에 저장해주어야 한다.     
+아래는 최종 코드이다.     
+
+## 최종 코드
+
+```cpp
+#include <string>
+#include <cctype> 
+
+using namespace std;
+
+string solution(string s) {
+    bool capitalize = true;  // 단어의 시작을 알리는 플래그
+    bool digit = false; // 숫자인가?
+    
+    for (int i = 0; i < s.length(); i++) 
+        s[i] = tolower(s[i]);
+    
+    for (int i = 0; i < s.length(); i++) {
+        if (s[i] == ' ') {
+            capitalize = true;  // 공백 판별
+                    } 
+        else if (capitalize && isdigit(s[i])) {  // 공백 다음에 숫자면 
+            capitalize = false;  // 대문자로 x
+        }
+        else if (capitalize && isalpha(s[i])) { // 공백 다음이면 
+            s[i] = toupper(s[i]);  // 대문자로
+            capitalize = false;
+            }
+        else {
+            s[i] = tolower(s[i]);  // 그 외의 경우는 소문자로 유지
+        }
+    }
+    return s;
+}
+
+```
