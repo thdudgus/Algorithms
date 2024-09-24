@@ -81,3 +81,22 @@
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
+
+## 문제 해결 아이디어
+
+학생들의 번호 리스트에서 3을 뽑는 combinations을 리스트로 만든 후 그 합이 0이 되면 answer +=1      
+
+## 최종 코드
+
+```python
+from itertools import combinations
+def solution(number):
+    answer = 0
+    numbers = list(number)
+    students = list(combinations(numbers, 3))
+    for i in students:
+        if (sum(i) == 0):
+            answer +=1
+    return answer
+```
+
