@@ -79,8 +79,9 @@ n에서 1을 증가시키면서 bin()을 이용하여 이진수로 반환하여 
 split()함수는 문자열을 일정한 규칙으로 잘라서 리스트로 만들어주는 함수이다.    
 `문자열.split(sep, maxsplit)`함수는 문자열을 maxsplit 번 만큼 sep의 구분자를 기준으로 문자열을 구분하여 잘라서 리스트를 만들어준다.    
 sep 파라미터는 기본값이 none이고, 이때엔 공백을 기준으로 문자열을 자른다. 다른 기준으로 자르고 싶다면 ‘,’와 같이 쉼표를 기준으로 자를 수 있다.   
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/0f18c247-6d18-4d5e-9eab-6f66bdc404b1/6a9a654d-fb1c-46fe-8616-946a5798c06a/image.png)
+**예시**
+`s : a b c d e f g
+s.split() : ['a', 'b', 'c', 'd', 'e', 'f', 'g']`
 
 ## 최종 코드
 
