@@ -38,3 +38,44 @@
 
  <p>각 테스트 케이스마다, n을 1, 2, 3의 합으로 나타내는 방법의 수를 출력한다.</p>
 
+## 문제 해결 아이디어
+
+시간제한은 1초   
+
+약 1억번의 연산 가능.   
+
+1이 나오려면 1 ⇒ 1개   
+
+2가 나오려면 1+1, 2 ⇒ 2개    
+
+3이 나오려면 1+1+1 / 2+1 / 1+2 / 3 ⇒ 4개    
+
+4가 나오려면 1+1+1+1 / 2+1+1 / 1+2+1 / 3+1 / 1+3 / 2+2 / 1+1+2 ⇒7개     
+
+…   
+
+n이 나오는 개수는 n-1의 개수와 n-2의 개수, n-3의 개수 +1이다.    
+
+왜냐하면 1, 2, 3의 합으로 이루어져 있기 때문에 n-3에선 3을 더한 개수, n-2에선 2를 더한 개수, n-1에선 1을 각각 더한 개수이기 때문이다.    
+
+따라서 동적 프로그래밍으로 해결하면 된다.    
+
+## 최종 코드
+```python
+n = int(input())
+addition = [] # 덧셈 횟수
+addition.append(0) #0, 인덱스 쉽게 구하기 위한 더미 데이터.
+addition.append(1) #1
+addition.append(2) #2
+addition.append(4) #3
+case = [] # 덧셈 횟수를 구할 숫자들
+for i in range(n):
+    case.append(int(input()))
+
+if max(case) > 3:
+    for i in range(4, max(case)+1):
+        addition.append(addition[i-1]+addition[i-2]+addition[i-3])
+
+for i in range(n):
+    print(addition[case[i]])
+```
