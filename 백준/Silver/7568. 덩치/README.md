@@ -67,3 +67,31 @@
 
  <p>여러분은 입력에 나열된 사람의 덩치 등수를 구해서 그 순서대로 첫 줄에 출력해야 한다. 단, 각 덩치 등수는 공백문자로 분리되어야 한다.</p>
 
+## 문제 해결 아이디어
+
+시간제한 1초로 약 1억번의 연산 가능.   
+N이 2부터 50까지로 log(N^3)도 가능함.     
+body 리스트로 정수를 입력 받고 키와 몸무게를 비교하여 크면 rank리스트에 +1한다. 자기자신과 비교하는 경우는 생략한다. 출력은 rank리스트를 출력한다.    
+
+## Input 반례 (해결 과정)    
+랭크를 저장한 rank리스트를 print(rank)로 출력했더니 [2, 2, 1, 2, 5]로 출력되어 채점시 틀렸었다.     
+print(rank) 대신 print(*rank)로 출력하면 2 2 1 2 5처럼 리스트 요소를 한 번에 출력할 수 있다. ⇒ 정답!     
+
+## 최종 코드
+```python
+n = int(input())
+body = []
+rank = []
+for i in range(n):
+    body.append(list(map(int, input().split())))
+    rank.append(1)
+
+for i in range(n): # 비교
+    for j in range(n): # 비교 당함
+        if i == j:
+            continue
+        if (body[i][0] < body[j][0]) and (body[i][1] < body[j][1]):
+            rank[i] = rank[i] + 1
+
+print(*rank)
+```
