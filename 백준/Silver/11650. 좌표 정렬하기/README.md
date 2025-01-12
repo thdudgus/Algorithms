@@ -26,3 +26,42 @@
 
  <p>첫째 줄부터 N개의 줄에 점을 정렬한 결과를 출력한다.</p>
 
+
+## 문제 해결 아이디어   
+
+#### 튜플    
+
+튜플은 변경이 불가능한 자료형이다.    
+
+각 좌표의 값이 변할 필요가 없기 때문에 튜플을 사용하였다.      
+
+#### 튜플 정렬
+
+```python
+t = [(3, 4), (1, 1), (1, -1), (2, 2), (3, 3)]
+
+t.sort(key=lambda x:x[0]) // 첫 번째 원소로 오름차순 정렬
+t.sort(key=lambda x:x[1]) // 두번째 원소로 오름차순 정렬
+
+t.sort(key=lambda x:-x[0]) // 첫 번째 원소로 내림차순 정렬
+t.sort(key=lambda x:-x[1]) // 두 번째 원소로 내림차순 정렬
+
+t.sort(key=lambda x:(x[0], x[1])) // 첫 번째 원소로 오름차순 정렬, 첫 번째 원소가 같은 경우 두 번째 원소로 오름차순 정렬
+```
+
+- 모든 `sort()` 메서드는 **Timsort** 기반이며, 시간복잡도는 O(n log n)으로 동일하다.    
+- **공간복잡도:** `O(n)` (정렬 과정에서 추가 메모리 사용)     
+- **안정 정렬:** `t.sort(key=lambda x:(x[0], x[1]))`와 같은 다중 조건 정렬에서도 첫 번째 기준이 동일한 경우 두 번째 기준으로 안정적으로 정렬된다.    
+
+## 최종 코드
+```python
+n = int(input())
+origin = []
+for i in range(n):
+    origin.append(tuple(map(int, input().split())))
+
+origin.sort(key=lambda x:(x[0], x[1]))
+
+for i in origin:
+    print(*i)
+```
