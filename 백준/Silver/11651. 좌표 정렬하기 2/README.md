@@ -26,3 +26,22 @@
 
  <p>첫째 줄부터 N개의 줄에 점을 정렬한 결과를 출력한다.</p>
 
+## 문제 해결 아이디어
+
+[lambda](https://www.notion.so/lambda-17e5e2536d928020adbbdb195d11eb45?pvs=21)
+
+lambda를 이용하여 y좌표를 기준으로 정렬하고, y 좌표가 같다면 x  좌표를 기준으로 정렬한다.
+
+## 최종 코드
+
+```python
+n = int(input())
+origin = []
+for i in range(n):
+    origin.append(tuple(map(int, input().split())))
+
+origin.sort(key=lambda x: (x[1], x[0]))
+
+for i in origin:
+    print(*i)
+```
