@@ -55,3 +55,55 @@
 
  <p>각 테스트 케이스마다 0이 출력되는 횟수와 1이 출력되는 횟수를 공백으로 구분해서 출력한다.</p>
 
+
+## 문제 해결 아이디어
+
+위 코드에서 print 부분을 count 해보겠다.    
+
+```python
+t = int(input())
+result = [0, 0]
+def fibonacci(n, result):
+    if n == 0:
+        result[0] += 1
+        return 0
+    elif n == 1:
+        result[1] += 1
+        return 1    
+    else:
+        return fibonacci(n-1, result) + fibonacci(n-2, result)
+
+for _ in range(t):
+    n = int(input())
+    result = [0, 0]
+    fibonacci(n, result)
+    print(result[0], result[1])
+```
+
+예제 입력들에 대한 답은 모두 맞지만, 역시나 시간초과가 발생한다.   
+
+시간이 0.25초로 매우 짧기 때문에 DP를 이용해서 필요하지 않은 계산을 줄이도록 하겠다.   
+
+0과 1이 호출되는 횟수도, 피보나치 수 0, 1, 2는 [1, 0], [0, 1], [1, 1]로 고정되어 있다. 이후 3부터는 피보나치 수 원리에 따라 1과 2의 호출 횟수의 합이다.   
+
+따라서 피보나치 수 자체는 계산할 필요가 없고 피보나치 수를 3부터 테스트 케이스 중 가장 큰 값까지 반복하면서, 0과 1 호출 횟수를 저장한다. (이전과 그 이전 호출 횟수 값을 더함.)   
+
+⇒ 정답 !   
+
+아래는 최종 코드이다.    
+
+## 최종 코드
+
+```python
+t = int(input())
+result = [[1, 0], [0, 1], [1, 1]]
+case = []
+for _ in range(t):
+    case.append(int(input()))
+m = max(case)
+for i in range(3, m+1):
+    result.append([result[i-1][0]+result[i-2][0], result[i-1][1]+result[i-2][1]])
+
+for i in case:
+    print(result[i][0], result[i][1])
+```
