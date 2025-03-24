@@ -50,3 +50,52 @@
 
  <p>첫째 줄에 계단 오르기 게임에서 얻을 수 있는 총 점수의 최댓값을 출력한다.</p>
 
+
+## 문제 해결 아이디어
+
+계단이 최대 300개이고, 계단의 수가 늘어날수록 기하급수적으로 경우의 수가 증가하기 때문에, DP를 이용해서 문제를 풀면 간단해진다.   
+
+계단의 점수를 담은 stair 리스트   
+
+점수의 합을 담을 dp 리스트. dp는 마지막 계단의 입장에서 이전 계단들이 어떻게 밟힐지 생각해볼 수 있다.   
+
+두 가지의 경우가 있다.   
+
+1. 마지막 계단의 전 계단을 밟은 경우 (6개의 계단인 경우, 6, 5를 밟는다.)
+2. 마지막 계단의 전 계단을 밟지 않는 경우 (6, 4, 3를 밟는다.)
+
+점화식으로 표현하면,
+
+1. stair[i] + stair[i-1] + dp[i-3]: 경우1
+2. stair[i] + dp[i-2]: 경우2
+
+```python
+max(stair[i] + stair[i-1] + dp[i-3], stair[i] + dp[i-2])
+```
+## 최종 코드
+
+```python
+n = int(input())
+stair = [0]
+for i in range(n):
+    stair.append(int(input()))
+
+dp = [0] * (n + 1)
+if n == 1:
+    print(stair[1])
+    exit(0)
+elif n == 2:
+    print(stair[1] + stair[2])
+    exit(0)
+
+elif n >= 3:
+    dp[1] = stair[1]
+    dp[2] = stair[1] + stair[2]
+    dp[3] = max(stair[1] + stair[3], stair[2] + stair[3])
+if n >= 4:
+    for i in range(4, n + 1):
+        dp[i] = max(stair[i]+stair[i-1]+dp[i-3], stair[i]+dp[i-2])
+
+print(dp[n])
+
+```
