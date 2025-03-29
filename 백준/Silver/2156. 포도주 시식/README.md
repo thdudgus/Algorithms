@@ -35,3 +35,117 @@
 
  <p>첫째 줄에 최대로 마실 수 있는 포도주의 양을 출력한다.</p>
 
+
+
+## 문제 해결 아이디어
+
+포도주를 선택하면 다 마셔야 하고.   
+
+남아서 빈 잔은 그대로 둬야 하고.   
+
+연속 세잔은 마실 수 없고.   
+
+포도주의 양이 담겨 있는 리스트 grape.    
+
+n번째 잔을 마신다고 쳤을 때 가장 많이 마실 수 있는 양을 dp에 저장한다면,   
+
+dp[1] = grape[1]   
+
+dp[2] = grape[2] + grape[1]   
+
+dp[3] = grape[3] + grape[1]   
+
+dp[4] = max(grape[4] + grape[3] + dp[1], grape[4] + dp[2])   
+
+dp[5] = max(grape[5] + grape[4] + dp[2], grape[5] + dp[3])    
+   
+<aside>
+💡
+
+i번째 포도주 + i-1번째 포도주 + i-3번째 포도주까지의 최대   
+
+i번째 포도주 + i-2번째 포도주까지의 최대    
+
+위 두 경우의 포도주 중 최대를 dp[i]로 택한다.    
+
+⇒ dp[i] = max(grape[i]+grape[i-1]+dp[i-3], grape[i]+dp[i-2])    
+
+</aside>
+
+그리고 해당 dp 리스트에서 가장 큰 값을 출력한다.    
+
+## Input 반례 (해결 과정)
+
+```python
+n = int(input())
+grape = [0]
+dp = [0] * (n+1)
+for i in range(n):
+    grape.append(int(input()))
+
+if n >= 1:
+    dp[1] = grape[1]
+if n >= 2:
+    dp[2] = grape[1] + grape[2]
+if n >= 3:
+    dp[3] = max(grape[3]+grape[1], grape[3]+grape[2])
+if n >= 4:
+    for i in range(4, n+1):
+        dp[i] = max(grape[i]+grape[i-1]+dp[i-3], grape[i]+dp[i-2])
+print(max(dp))
+```
+
+위와 같이 풀었는데 2%에서 틀렸다고 나왔다.   
+
+게시판에 있는 반례들을 대부분 해봤지만 오류가 발생했다.   
+
+그러던 중 게시판 글 하나에서 반례를 찾았다.    
+
+```
+7
+10
+100
+100 
+10
+10
+100
+100
+
+// 답: 400
+// 출력 결과: 320
+```
+
+내 코드에선 `i번째 포도주 + i-1번째 포도주 + i-3번째 포도주까지의 최대`,    
+
+`i번째 포도주 + i-2번째 포도주까지의 최대`    
+
+위 두 경우의 포도주 중 최대를 dp[i]로 택하고 있다.    
+
+위 반례에서 최대가 되려면 i번째 포도주, i-1번째 포도주, i-4번째 포도주까지의 최대를 더했을 때가 최대이다.    
+ 
+따라서 해당 경우를 추가해주었다. `grape[i]+grape[i-1]+dp[i-4]`     
+
+⇒ 정답..!    
+
+아래는 최종 코드이다.    
+
+## 최종 코드
+
+```python
+n = int(input())
+grape = [0]
+dp = [0] * (n+1)
+for i in range(n):
+    grape.append(int(input()))
+
+if n >= 1:
+    dp[1] = grape[1]
+if n >= 2:
+    dp[2] = grape[1] + grape[2]
+if n >= 3:
+    dp[3] = max(grape[3]+grape[1], grape[3]+grape[2])
+if n >= 4:
+    for i in range(4, n+1):
+        dp[i] = max(grape[i]+grape[i-1]+dp[i-3], grape[i]+dp[i-2], grape[i]+grape[i-1]+dp[i-4])
+print(max(dp))
+```
