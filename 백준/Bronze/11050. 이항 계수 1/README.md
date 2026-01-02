@@ -26,3 +26,10 @@
 
  <p> \(\binom{N}{K}\)를 출력한다.</p>
 
+
+ ### 문제 해결 아이디어
+
+이항 계수 Binomial Coefficient: n개 중에 k개를 순서에 상관없이 뽑는 경우의 수. (조합의 수), C(n, k)   
+⇒ n!/((n-k)!k!)   
+`import math`의 `factorial`을 사용.   
+
