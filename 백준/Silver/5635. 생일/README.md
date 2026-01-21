@@ -30,3 +30,24 @@
 
  <p>첫째 줄에 가장 나이가 적은 사람의 이름, 둘째 줄에 가장 나이가 많은 사람 이름을 출력한다.</p>
 
+
+ ## 문제 해결 아이디어
+
+공백을 기준으로 쪼개서 리스트로 만들어 people 리스트에 담고, people리스트를 순회하면서 연, 월, 일을 순차적으로 기준 삼아 오름차순으로 정렬한다.   
+
+그리고 마지막 인덱스(가장 어림)와 첫 인덱스의 사람(가장 나이 많음)을 출력한다.    
+
+## 최종 코드
+```python
+n = int(input())
+people = []
+
+for i in range(n):
+    tmp = input().split(' ')
+    people.append(tmp)
+people.sort(key=lambda x: (int(x[3]), int(x[2]), int(x[1])))
+
+print(people[-1][0])
+print(people[0][0])
+```
+
