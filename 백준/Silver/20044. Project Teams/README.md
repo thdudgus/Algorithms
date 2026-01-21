@@ -30,3 +30,17 @@
 
  <p>출력은 표준출력을 사용한다. 표준출력 한 행에 <em>S<sub>m</sub></em>을 출력한다.</p>
 
+## 문제 해결 아이디어
+
+코딩 역량들을 정렬하고, 가장 처음과 끝의 학생을 조로 묶어주면, 각 팀의 코딩 역량 차이가 적을 것이다.   
+
+## 최종 코드
+```python
+n = int(input())
+student = list(map(int, input().split()))
+student.sort()
+result = []
+for i in range(n):
+    result.append(student[i]+student[-1-i])
+print(min(result))
+```
