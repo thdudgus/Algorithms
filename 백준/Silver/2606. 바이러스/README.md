@@ -32,3 +32,55 @@
 
  <p>1번 컴퓨터가 웜 바이러스에 걸렸을 때, 1번 컴퓨터를 통해 웜 바이러스에 걸리게 되는 컴퓨터의 수를 첫째 줄에 출력한다.</p>
 
+## Input 반례 (해결 과정)
+
+```python
+n = int(input())
+m = int(input())
+graph = [[] for _ in range(n+1)]
+
+for _ in range(m):
+    a, b = map(int, input().split())
+    graph[a].append(b)
+    graph[b].append(a)
+    
+visited = [False] * n
+
+def virus(graph, v, visited):
+    visited[v] = True
+    for i in graph[v]:
+        if not visited[i]:
+            virus(graph, i, visited)
+
+virus(graph, 1, visited)
+print(visited.count(True)) 
+```
+
+해당 코드에 예제 입력1을 실행하면 정답인 4가 아니라 5가 출력되었다. 문제에서 요구사하는 정답은 1번 컴퓨터를 통해 웜 바이러스에 걸리게 되는 컴퓨터의 수를 출력하는 것이었다. 따라서  `print(visited.count(True))`에서 -1을 빼서 1번 컴퓨터를 제외시켜주는 것이다. (1번 컴퓨터도 당연히 True이기 때문)    
+
+`visited = [False] * n`에서 index error가 발생하였다. `graph`에서 0번 인덱스는 포함하지 않아 range를 n+1로 잡은 것처럼, visited도 0번 인덱스를 포함한 n+1의 공간이 필요하다.    
+
+수정한 최종 코드는 아래와 같다.    
+
+## 최종 코드
+```python
+n = int(input())
+m = int(input())
+graph = [[] for _ in range(n+1)]
+
+for _ in range(m):
+    a, b = map(int, input().split())
+    graph[a].append(b)
+    graph[b].append(a)
+    
+visited = [False] * (n+1)
+
+def virus(graph, v, visited):
+    visited[v] = True
+    for i in graph[v]:
+        if not visited[i]:
+            virus(graph, i, visited)
+
+virus(graph, 1, visited)
+print(visited.count(True)-1)
+```
