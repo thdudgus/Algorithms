@@ -35,3 +35,49 @@
 
  <p>첫째 줄에는 배정된 예산들 중 최댓값인 정수를 출력한다. </p>
 
+## 문제 해결 아이디어
+
+예산 가능 리스트는 1부터 지방의 최고 예산까지 가능하다고 생각한다. (원래 1부터 지방의 최고 예산까지 리스트를 만들까 했는데, 조금 생각해보니 메모리 낭비라 그럴 필요 없이 그냥 바로 숫자를 넣으면 되겠구나 떠올렸다.)   
+<img width="534" height="259" alt="스크린샷 2026-02-12 오전 2 45 50" src="https://github.com/user-attachments/assets/4479f466-e887-4dbc-bee4-70a37660ccd0" />
+
+
+
+## Input 반례 (해결 과정)
+
+처음에 return 값을 단순히 `start`로 했다가 결과값이 다 +1 되길래 생각해보니,     
+
+예산 상한액 보다 합이 작으면, 더 최적(예산 최대 합)을 찾으려고 `start = mid + 1`을 해보다가 `start > end`가 되는 것이므로, `start - 1`이 정답이 된다.    
+
+> tmi지만, 제미나이 안 쓰고 풀었음!!! 짱 신남!!! 끼얏호~!    
+코드 쓰다보니 변수 헷갈려서 열심히 주석을 달며… 풀었다!!
+> 
+
+## 최종 코드
+
+```python
+import sys
+n = int(sys.stdin.readline()) # 지방의 수
+wants = list(map(int, sys.stdin.readline().split())) # 지방요청들
+m = int(sys.stdin.readline()) # 실상한액
+
+        # 시작가능금액, 끝가능금액, 실상한액, 지방요청들
+def find_budget(start, end, limit, wantss):
+    while start <= end: 
+        # 특정 상한액
+        mid = (start + end) // 2
+        # 특정 상한액으로 자르기
+        cutted = [mid if x >= mid else x for x in wantss] 
+        
+        if sum(cutted) <= limit: # 예산 상한액 보다 합이 작으면 더 최적(예산 최대 합)을 찾아보자
+            start = mid + 1
+        else: end = mid - 1 # 예산 상한액 보다 합이 크면 특정 상한액을 더 줄이자.
+        
+    # 이렇게 구해진 start-1이 최대 예산. (한 번 더 확인해보려고 start에 1을 더한 것이었기 때문에 start-1이 최대 예산이 된다.)
+    return start - 1
+           
+if sum(wants) <= m:
+    print(max(wants))
+else:
+    wants.sort()
+    print(find_budget(1, wants[-1], m, wants)) # 시작가능금액, 끝가능금액, 실상한액, 지방요청들
+```
