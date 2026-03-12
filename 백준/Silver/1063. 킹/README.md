@@ -47,3 +47,62 @@
 
  <p>첫째 줄에 킹의 마지막 위치, 둘째 줄에 돌의 마지막 위치를 출력한다.</p>
 
+## 문제 해결 아이디어
+
+체스판의 위치는 좌표를 쓸 필요 없이, 단순히 2차원 리스트로 하여 1과 8 사이의 값이 있는지만 확인하면 된다.
+
+킹을 이동시킨다.
+
+조건
+
+1. 킹 이동하고 나니 돌과 같은 곳이면, 돌도 같은 방향으로 옮긴다.
+2. 근데 킹이든 돌이든 체스판 밖이면 해당 이동은 rollback
+
+## Input 반례 (해결 과정)
+
+첫번째 예제 input에 대한 결과만 맞고, 두번째 예제부턴 그냥 input에 넣은 좌표 그대로 출력이 됐다.. 출력을 확인해보니 그냥 단순히 dir 문자가 더해진 상태였다. `[1, 1]`이 입력이면 `[1, 1, ‘B’]`와 같이 되었다. 
+
+또한, 난 `dir`을 입력받으면, 위에 선언한 리스트의 값과 자동으로 매치되는 줄 알았는데 그게 아니었다… `dir`이 `‘B’`면 자동으로 B리스트 값이 `dir`에 들어가는 줄 알았다… 
+
+⇒ 직접 매칭시켜줘야 한다.. directions 함수로 따로 만들어줬다..
+
+또한 `[1, 1] + [2, 4]`이 numpy처럼 `[3, 5]`가 된다고 생각했는데 `[1, 1, 2, 4]`가 된다.. `zip`을 이용해 각 원소끼리 더해지도록 하였다.
+
+## 최종 코드
+
+```python
+import sys
+king, stone, n = sys.stdin.readline().split()
+king = list(king)
+stone = list(stone)
+n = int(n)
+king_location = [ord(king[0]) - 64, int(king[1])]
+stone_location = [ord(stone[0]) - 64, int(stone[1])]
+
+def directions(dir):
+    if dir == 'R': dir = [1, 0]
+    elif dir == 'L': dir = [-1, 0]
+    elif dir == 'B': dir = [0, -1]
+    elif dir == 'T': dir = [0, 1]
+    elif dir == 'RT': dir = [1, 1]
+    elif dir == 'LT': dir = [-1, 1]
+    elif dir == 'RB': dir = [1, -1]
+    elif dir == 'LB': dir = [-1, -1]
+    return dir
+
+for _ in range(n):
+    dir = sys.stdin.readline().rstrip()
+    direction = directions(dir)
+    flag = False
+
+    king_location = [x+y for x, y in zip(king_location, direction)]
+    if king_location == stone_location:
+        stone_location = [x+y for x, y in zip(stone_location, direction)]
+        flag = True
+    if king_location[0] < 1 or king_location[0] > 8 or king_location[1] < 1 or king_location[1] > 8 or stone_location[0] < 1 or stone_location[0] > 8 or stone_location[1] < 1 or stone_location[1] > 8:
+        king_location = [x-y for x, y in zip(king_location, direction)]
+        if flag: stone_location = [x-y for x, y in zip(stone_location, direction)]
+
+print(chr(king_location[0] + 64) + str(king_location[1]))
+print(chr(stone_location[0] + 64) + str(stone_location[1]))
+```
