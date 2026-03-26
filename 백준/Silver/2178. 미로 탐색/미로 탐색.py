@@ -8,11 +8,11 @@ for i in range(nm[0]):  # nm[0]: n (row, 행)
 
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
+
 def bfs(x, y):
     queue = deque([(x, y)])
     while queue:
         x, y = queue.popleft()
-
         for i in range(4):
             xx = x + dx[i]
             yy = y + dy[i]
