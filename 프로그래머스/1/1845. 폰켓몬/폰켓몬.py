@@ -1,15 +1,8 @@
 def solution(nums):
-    p = {}
-    for i in nums:
-        p[i] = 0
-    for i in nums: # 폰켓몬 수 세기
-        p[i] += 1
-        
+    p = set(nums) # 폰켓몬 중복 제거      
     n = len(nums)/2 # 입양할 폰켓몬 수
-    s = set()
-    if len(p) >= n:
-        answer = n
-    else:
-        answer = len(p)
     
-    return answer
+    if len(p) >= n:
+        return n
+    else:
+        return len(p)
