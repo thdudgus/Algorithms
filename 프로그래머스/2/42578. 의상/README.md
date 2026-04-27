@@ -102,6 +102,13 @@ face에 해당하는 의상이 crow_mask, blue_sunglasses, smoky_makeup이므로
 </code></pre></div>
 <hr>
 
+## 문제 해결 아이디어
+최소 하루에 한 개의 의상은 입는다. ⇒ 안 입는 날은 없다.
+
+`[["yellow_hat", "headgear"], ["blue_sunglasses", "eyewear"], ["green_turban", "headgear"]]` 가 clothes인 경우, headgear에 2개, eyewear에 1개이다. 
+
+어떤 건 선택하고, 어떤 건 선택 안 하는 경우를 따져서 경우의 수를 구해야하기 때문에 입지 않는 경우를 1 추가하여 조합으로 구한다. 위 예시에서 headgear 2개+1에서 하나를 고르는 경우와 eyewear 1개 + 1에서 하나를 고르는 경우를 곱한다. 여기엔 둘 다 안 입는 경우가 섞여있으므로 1을 빼준다.
+
 <p>※ 공지 - 2023년 4월 21일 문제 지문이 리뉴얼되었습니다.</p>
 
 
