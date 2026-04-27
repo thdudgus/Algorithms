@@ -76,6 +76,50 @@
 
 <hr>
 
+## Input 반례 (해결 과정)
+
+```python
+# 전화번호를 담은 배열 phone_book
+# 어떤 번호가 다른 번호의 접두어인 경우가 있으면 false, 그렇지 않으면 true
+import statistics
+def solution(phone_book):
+    phone_book.sort(key=lambda x: len(x), reverse=False)
+    answer = True
+    for i in range(len(phone_book)):
+        for j in range(i+1, len(phone_book)):
+	        if phone_book[i] in phone_book[j] and phone_book[j].index(phone_book[i]) == 0:
+		        return False
+    return answer
+```
+
+예제와 테스트 케이스 모두 맞지만 효율성 테스트에서 50%만 정답이었다… 
+
+아마 for문이 2개 겹쳐져서 O(n^2)이 되었을 것이다. 
+
+생각해봐도 어떻게 해야 시간복잡도를 해소할 수 있을지 감이 잘 안 잡혀서 `i`에 대한 반복문에서 `range`를 `phone_book` 개수의 반만 해보기도 했는데, 사실 딱 봐도 아니긴 하다.
+
+정렬을 length 기준으로 하는 것이 아니라 사전 순으로 하면 가장 인접한 것에만 접두어가 있을 확률이 있다. 즉 ‘123’이면 사전 순으로 정렬했을 때, ‘1234’, ‘12348’ 순으로 정렬되기 때문에 바로 뒤 인덱스의 값과만 비교하면 된다. (만약 사전 순으로 정렬했을 때, ‘123’ 뒤에 ‘294’가 있다면 어차피 그 뒤는 당연히 접두어로 일치하지 않는다.)
+
+그리고 index()는 일치하는 게 없다면 에러를 뱉기 때문에 `if phone_book[i] in phone_book[j] and phone_book[j].index(phone_book[i]) == 0:` 를 조건으로 걸었는데, `if phone_book[i+1].startswith(phone_book[i]):` 와 같이 사용할 수 있는 메서드가 있었다.. 
+
+아래는 정답 코드이다.
+
+## 최종 코드
+
+```python
+# 전화번호를 담은 배열 phone_book
+# 어떤 번호가 다른 번호의 접두어인 경우가 있으면 false, 그렇지 않으면 true
+import statistics
+def solution(phone_book):
+    phone_book.sort()
+    answer = True
+    for i in range(len(phone_book)):
+        if i+1 < len(phone_book):
+            if phone_book[i+1].startswith(phone_book[i]):
+                return False
+    return answer
+```
+
 <p><strong>알림</strong></p>
 
 <p>2021년 3월 4일, 테스트 케이스가 변경되었습니다. 이로 인해 이전에 통과하던 코드가 더 이상 통과하지 않을 수 있습니다.</p>
