@@ -1,15 +1,21 @@
 def solution(s):
-    parent_list = list(s)
-    stack=[]
-    for i in range(0, len(parent_list)):
-        if parent_list[i]=='(':
-            stack.append('(')
-        elif parent_list[i]==')':
-            if len(stack)!=0:
+    p = list(s)
+    stack = [0]
+    
+    for i in range(len(p)):
+        if p[0] == ')':
+            stack.append(p[i])
+            break
+        elif p[i] == ')':
+            if stack[-1] == '(':
                 stack.pop()
-            else:
-                return False
-    if len(stack) != 0:
-        return False
-        
-    return True
+            if stack[-1] == ')':
+                stack.append(p[i])
+        elif p[i] == '(' :
+            stack.append(p[i])
+            
+    if len(stack) == 1:
+        answer = True
+    else: answer = False
+    
+    return answer
