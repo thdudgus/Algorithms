@@ -1,0 +1,8 @@
+-- FIRST_HALF: 아이스크림 가게의 상반기 주문 정보
+-- ICECREAM_INFO: 아이스크림 정보 (여기의 FLAVOR는 FIRST_HALF의 FLAVOR의 기본키)
+SELECT i.FLAVOR
+FROM FIRST_HALF as f, ICECREAM_INFO as i
+WHERE i.INGREDIENT_TYPE = "fruit_based" and i.FLAVOR = f.FLAVOR  and f.TOTAL_ORDER > 3000 
+ORDER BY f.TOTAL_ORDER DESC
+
+
