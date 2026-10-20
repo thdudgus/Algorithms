@@ -5,7 +5,6 @@ def solution(genres, plays):
         music[g] = music.get(g, 0) + p  # 장르g의 현재 합계를 가져와서 p를 더해주기
     
     sorted_music = dict(sorted(music.items(), key=lambda item: item[1], reverse=True))
-    print(sorted_music)
     
     # 장르별 곡 목록
     music_genre = {}
@@ -15,7 +14,6 @@ def solution(genres, plays):
         if g not in music_genre:      # 처음 보는 장르면
             music_genre[g] = []       # 빈 리스트 만들기
         music_genre[g].append((p, i)) # (재생수, 번호) 넣기
-    print(music_genre)
     
     answer = []
     for s in sorted_music:
