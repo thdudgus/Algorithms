@@ -1,42 +1,33 @@
 def solution(n, computers): 
-    graph = []
+    graph = [[] for _ in range(n)]
     
     # 인접리스트 만들기
-    for i in range(len(computers)):
-        tmp = []
-        for k in range(len(computers[i])):
-            if i == k:
-                continue
-            if computers[i][k] == 1:
-                tmp.append(k)
-        graph.append(tmp)
-
+    for i in range(n):
+        for j in range(n):
+            if i != j and computers[i][j] == 1:
+                graph[i].append(j)
+                
+    visited = [False]*n # 각 노드의 방문 여부
+    visited2 = [False]*n # 각 네트워크(라고 가정 시) 방문 여부
+    print(visited)
+    answer = 0
+    
     def dfs(start, graph, visited):
         visited[start] = True
         visited2[start] = True
+        
         for i in graph[start]:
             if not visited[i]:
                 dfs(i, graph, visited)
-        
-        return 0
+                
     
-    visited = [False] * len(computers) # 한 그래프 안에서 각 노드 방문 여부
-    visited2 = [False] * len(computers) # 그래프가 여러 개인 경우 노드 방문 여부
-    answer = 0
-    
-    v = True
-    while v:
+    flag = True
+    while flag:
         answer += 1
-        idx = visited2.index(False) # 방문하지 않은 그래프 체크
-        visited2[idx] = True
+        idx = visited2.index(False)
         dfs(idx, graph, visited)
-        count = 0
         
-        # 그래프 여러 개인 경우 방문하지 않은 노드가 있는지 체크
-        for i in visited2:
-            if i == True:
-                count += 1
-        if count == len(visited2):
-            v = False
-
+        if visited2.count(True) == n:
+            break
+            
     return answer
